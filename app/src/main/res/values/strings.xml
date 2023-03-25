@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">ToDoList</string>
     <string name="app_heading">Students List</string>
-    <string name="instruction1">First Name</string>
+    <string name="instruction1">Enter Student Name</string>
     <string name="instruction">Enter Here</string>
     <string name="submit_button">Submit</string>
-    <string name="instruction2">Last Name</string>
-    <string name="input_instruction">Enter Here</string>
+    <string name="student_list">List of Students</string>
+    <string name="delete">Delete Selected</string>
 </resources>
