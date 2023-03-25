@@ -7,14 +7,14 @@ import android.view.View
 import android.widget.*
 import ca.skaram.myapplication.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var submitButton: Button
     private lateinit var deleteButton: Button
-    private lateinit var studentsList: ListView
+    private lateinit var taskList: ListView
 
-    private val studentEntries = mutableListOf<String>("Karam", "Rishabh", "Aneri")
+    private val activities = mutableListOf<String>()
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,46 +25,63 @@ class MainActivity : AppCompatActivity() {
 
         submitButton = binding.submitButton
         deleteButton = binding.deleteButton
-        studentsList = binding.studentsList
+        taskList = binding.toDoList // add this line to initialize taskList
 
-        arrayAdapter = ArrayAdapter<String>(this, android.R.layout.select_dialog_multichoice, studentEntries)
-        studentsList.adapter = arrayAdapter
+        arrayAdapter = ArrayAdapter<String>(this, android.R.layout.select_dialog_multichoice, activities)
+        taskList.adapter = arrayAdapter
 
         submitButton.setOnClickListener { addNewEntry() }
         deleteButton.setOnClickListener { deleteSelectedEntries() }
-        studentsList.setOnItemClickListener { parent, view, position, id ->
-            toggleCheckedState(view)
-        }
+        taskList.onItemClickListener = this
     }
 
-    private fun addNewEntry() {
-        val studentName = binding.enterName.text.toString().trim()
-        if (studentName.isNotEmpty()) {
-            if (!studentEntries.contains(studentName)) {
-                studentEntries.add(studentName)
+        private fun addNewEntry() {
+            val taskText = binding.enterTask.text.toString()
+            if (taskText.isNotEmpty()) {
+                activities.add(taskText)
                 arrayAdapter.notifyDataSetChanged()
-                binding.enterName.text.clear()
-            } else {
-                Log.d("MainActivity", "Duplicate entry: $studentName")
-                Toast.makeText(this, "Duplicate entry: $studentName", Toast.LENGTH_SHORT).show()
+                binding.enterTask.text.clear()
+            }
+            else{
+                Log.d("MainActivity", "Invalid Entry. Try Again!")
+                addNewEntry()
             }
         }
-    }
-
-    private fun deleteSelectedEntries() {
-        val checkedPositions = studentsList.checkedItemPositions
-        for (i in checkedPositions.size() - 1 downTo 0) {
-            if (checkedPositions.valueAt(i)) {
-                val position = checkedPositions.keyAt(i)
-                studentEntries.removeAt(position)
+        private fun deleteSelectedEntries() {
+            val checkedPositions = taskList.checkedItemPositions
+            for (i in checkedPositions.size() - 1 downTo 0) {
+                if (checkedPositions.valueAt(i)) {
+                    val position = checkedPositions.keyAt(i)
+                    activities.removeAt(position)
+                }
             }
+            arrayAdapter.notifyDataSetChanged()
+            taskList.clearChoices()
         }
-        studentsList.clearChoices()
-        arrayAdapter.notifyDataSetChanged()
-    }
 
-    private fun toggleCheckedState(view: View) {
-        val checkedTextView = view.findViewById<CheckedTextView>(android.R.id.text1)
-        checkedTextView.isChecked = !checkedTextView.isChecked
-    }
+        override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            taskList.setItemChecked(position, true)
+        }
+
+        /**
+     * Callback method to be invoked when an item in this AdapterView has
+     * been clicked.
+     *
+     *
+     * Implementers can call getItemAtPosition(position) if they need
+     * to access the data associated with the selected item.
+     *
+     * @param parent The AdapterView where the click happened.
+     * @param view The view within the AdapterView that was clicked (this
+     * will be a view provided by the adapter)
+     * @param position The position of the view in the adapter.
+     * @param id The row id of the item that was clicked.
+     */
 }
+/*
+override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    if(view is CheckedTextView){
+        val checkbox: CheckedTextView = view
+        checkbox.toggle()
+    }
+}*/
