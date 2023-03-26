@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">ToDoList</string>
-    <string name="app_heading">Tasks List</string>
+    <string name="app_heading">TODO List</string>
     <string name="instruction1">T</string>
     <string name="instruction">Enter Activity Name</string>
     <string name="submit_button">Submit</string>
     <string name="student_list">List of Tasks</string>
     <string name="delete">Delete Selected</string>
+    <string name="timer">Timer</string>
 </resources>

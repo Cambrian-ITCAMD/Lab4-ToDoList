@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/hngshf139"
     tools:context=".MainActivity">
 
+    <!-- This is a child LinearLayout view group that contains several child views -->
     <LinearLayout
         android:id="@+id/infoFrame"
         android:layout_width="match_parent"
@@ -15,26 +17,45 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <Button
+        <!-- This TextView is used to display the app heading at the top of the screen. -->
+        <TextView
             android:id="@+id/heading"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="79dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/h"
             android:gravity="center"
             android:text="@string/app_heading"
+            android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold" />
 
-
-        <EditText
-            android:id="@+id/enterTask"
-            android:layout_margin="10dp"
-            android:hint="@string/instruction"
-            android:inputType="text"
-            android:autofillHints="name"
-            android:gravity="center"
+        <!-- This LinearLayout contains an EditText and a Button view. -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="80dp"
+            android:orientation="horizontal">
 
+            <!--The EditText allows the user to enter a task name.-->
+            <EditText
+                android:id="@+id/enterTask"
+                android:layout_width="289dp"
+                android:layout_height="match_parent"
+                android:autofillHints="name"
+                android:gravity="center"
+                android:hint="@string/instruction"
+                android:inputType="text" />
+
+            <!-- The Button is used to start a countdown timer for the entered task. -->
+            <Button
+                android:id="@+id/timerButton"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timer"/>
+        </LinearLayout>
+
+        <!-- This Button is used to submit the task entered by the user. -->
         <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
@@ -42,12 +63,14 @@
             android:text="@string/submit_button"
             android:layout_gravity="center"/>
 
+        <!-- This LinearLayout contains a TextView and a Button view. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
+            <!-- The TextView displays the label for the task list.-->
             <TextView
                 android:id="@+id/listName"
                 android:layout_width="244dp"
@@ -56,17 +79,20 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <!-- The Button is used to delete the current task from the list. -->
             <Button
                 android:id="@+id/deleteButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/delete"/>
         </LinearLayout>
 
+        <!--This is a ListView element used to display a list of items on the UI. -->
         <ListView
             android:id="@+id/toDoList"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="430dp" />
+            android:layout_height="380dp" />
 
     </LinearLayout>
 
