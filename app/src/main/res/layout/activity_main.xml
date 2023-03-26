@@ -21,13 +21,12 @@
         <TextView
             android:id="@+id/heading"
             android:layout_width="match_parent"
-            android:layout_height="79dp"
-            android:layout_margin="5dp"
+            android:layout_height="70dp"
             android:background="@drawable/h"
             android:gravity="center"
             android:text="@string/app_heading"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <!-- This LinearLayout contains an EditText and a Button view. -->
@@ -90,9 +89,10 @@
         <!--This is a ListView element used to display a list of items on the UI. -->
         <ListView
             android:id="@+id/toDoList"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/wb"
             android:layout_width="match_parent"
-            android:layout_height="380dp" />
+            android:layout_height="390dp" />
 
     </LinearLayout>
 
