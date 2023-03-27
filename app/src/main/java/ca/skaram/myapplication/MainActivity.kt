@@ -1,5 +1,6 @@
 package ca.skaram.myapplication
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private lateinit var taskList: ListView
 
     // A list to store the user's tasks
-    private val activities = mutableListOf<String>()
+    private val activities = mutableListOf<String>("Activity1", "Activity2", "Activity3", "Activity4", "Activity5")
 
     // An adapter for the task list
     private lateinit var arrayAdapter: ArrayAdapter<String>
@@ -62,7 +63,41 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
      */
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         taskList.setItemChecked(position, true)
+        // Create a new AlertDialog builder
+        val builder = AlertDialog.Builder(this)
+
+        // Set the dialog title and message using the clicked task
+        builder.setTitle("Rename Task")
+            .setMessage("Enter new name for task:")
+
+        // Create an EditText view for the dialog and set its initial value to the clicked task
+        val input = EditText(this)
+        input.setText(activities[position])
+
+        // Set the EditText view as the dialog view
+        builder.setView(input)
+
+        // Set the positive button action to rename the task
+        builder.setPositiveButton("Rename") { _, _ ->
+            // Get the new task name from the EditText view
+            val newName = input.text.toString()
+
+            // Rename the task in the activities list and update the adapter
+            activities[position] = newName
+            arrayAdapter.notifyDataSetChanged()
+        }
+
+        // Set the negative button action to cancel the dialog
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            // Dismiss the dialog when the negative button is clicked
+            dialog.cancel()
+        }
+
+        // Create and show the dialog
+        builder.create().show()
     }
+
+
 
     /**
      *This function starts a count down timer that counts down from the selected time.
@@ -155,6 +190,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         // clear the selection on the list
         taskList.clearChoices()
     }
+
 
     /**
      *This function shows a time picker dialog and starts a count down timer.

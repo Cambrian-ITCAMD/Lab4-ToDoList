@@ -6,4 +6,5 @@
     <string name="student_list">List of Tasks</string>
     <string name="delete">Delete Selected</string>
     <string name="timer">Timer</string>
+    <string name="rename_note">NOTE: Click On Task in List to Rename</string>
 </resources>

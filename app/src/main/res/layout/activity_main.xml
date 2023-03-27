@@ -54,6 +54,7 @@
                 android:text="@string/timer"/>
         </LinearLayout>
 
+
         <!-- This Button is used to submit the task entered by the user. -->
         <Button
             android:id="@+id/submitButton"
@@ -86,14 +87,29 @@
                 android:text="@string/delete"/>
         </LinearLayout>
 
-        <!--This is a ListView element used to display a list of items on the UI. -->
-        <ListView
-            android:id="@+id/toDoList"
-            android:layout_margin="8dp"
-            android:background="@drawable/wb"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="390dp" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/wb"
+            android:orientation="vertical">
 
+            <!-- This is TextView that provides instruction to Rename the task -->
+            <TextView
+                android:id="@+id/rename_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rename_note"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <!--This is a ListView element used to display a list of items on the UI. -->
+            <ListView
+                android:id="@+id/toDoList"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="380dp" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
