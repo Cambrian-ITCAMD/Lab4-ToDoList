@@ -53,6 +53,8 @@ details
     - Implemented the code for checking off items as "done" using a CheckedTextView or similar view.
     - Ensured that the ListView was scrollable and that items could be removed from the list as required.
     - Worked on giving meaningful ids and variable names. Also tried to use binding for almost all the items used in this lab layout.
+    - Worked on a feature of renaming the existing tasks and newly entered tasks.
+    - Added a feature to uncheck the selected tasks from listView to retain the task in listView.
     - Worked on adding code correctly to a new GitHub repository.
     - Tried to use proper "Commit messages" for all the updates that were made in github repository.
 
