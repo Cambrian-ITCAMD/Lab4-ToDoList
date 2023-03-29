@@ -97,8 +97,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         builder.create().show()
     }
 
-
-
     /**
      *This function starts a count down timer that counts down from the selected time.
      *The remaining time is displayed on the set timer button.
@@ -174,23 +172,49 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     /**
      *This function deletes the selected tasks from the task list.
+     * Also give option to uncheck the selected task from the listView enteries.
      */
     private fun deleteSelectedEntries() {
-        // get the positions of the selected tasks
-        val positions = taskList.checkedItemPositions
+    val checkedPositions = taskList.checkedItemPositions
+    if (checkedPositions.size() == 0) {
+        Toast.makeText(this, "No items selected to delete", Toast.LENGTH_SHORT).show()
+        return
+    }
 
-        // iterate over the selected tasks, removing them from the list and notifying the adapter
-        for (i in positions.size() - 1 downTo 0) {
-            if (positions.valueAt(i)) {
-                activities.removeAt(positions.keyAt(i))
-                arrayAdapter.notifyDataSetChanged()
+    val builder = AlertDialog.Builder(this)
+    builder.setTitle("Delete Tasks")
+    builder.setMessage("Are you sure you want to delete the selected tasks?")
+
+    builder.setPositiveButton("Delete") { _, _ ->
+        val uncheckedPositions = mutableListOf<Int>()
+        for (i in 0 until taskList.count) {
+            if (!checkedPositions[i]) {
+                uncheckedPositions.add(i)
             }
         }
 
-        // clear the selection on the list
-        taskList.clearChoices()
+        val newActivities = mutableListOf<String>()
+        for (position in uncheckedPositions) {
+            newActivities.add(activities[position])
+        }
+
+        activities.clear()
+        activities.addAll(newActivities)
+        arrayAdapter.notifyDataSetChanged()
     }
 
+    builder.setNegativeButton("Cancel") { dialog, _ ->
+        dialog.cancel()
+    }
+
+    builder.setNeutralButton("Uncheck") { _, _ ->
+        for (i in 0 until taskList.count) {
+            taskList.setItemChecked(i, false)
+        }
+    }
+
+    builder.create().show()
+}
 
     /**
      *This function shows a time picker dialog and starts a count down timer.
